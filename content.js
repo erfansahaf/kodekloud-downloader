@@ -8,15 +8,18 @@ let countVideoParsed = 0;
 let parseCompleted = false;
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message === "clicked_browser_action") {
-    if (!parseCompleted) {
-      // console.log("Not completed yet. Please try again later.");
-      createAlert("Not completed yet. Please try again later!");
-      return;
-    }
+  // console.log("onMessage", request, "sender", sender);
+  if (!parseCompleted) {
+    createAlert("Not completed yet. Please try again later!");
+    return;
+  }
 
+  if (request.selection === "html") {
     const htmlContent = createHtmlForDownload();
     downloadFileFromText($(".course-sidebar h2").text().toString() + ".html", htmlContent);
+  } else if (request.selection === "text") {
+    const textContent = createTextForDownload();
+    downloadFileFromText($(".course-sidebar h2").text().toString() + ".txt", textContent);
   }
 });
 
@@ -41,6 +44,7 @@ $(".course-sidebar")
       title: lectureTitle,
       fullTitle: fullTitle,
       url: "",
+      link: "",
     };
 
     //console.log(lecture);
@@ -56,12 +60,13 @@ $(".course-sidebar")
   });
 
 // Add and find video lecture item into List of All lectures
-function addLectureToList(id, videoName, lectureUrl) {
+function addLectureToList(id, { name, url, link }) {
   let item = courseLinks.find((item) => item.id === id);
-  item.url = lectureUrl;
-  item.name = videoName;
+  item.url = url;
+  item.link = link;
+  item.name = name;
   countVideoParsed++;
-  //console.log(countVideoParsed, lectureUrl);
+  //console.log(countVideoParsed, item);
 
   if (countVideoParsed === countVideos) {
     console.log("Parsing completed. Total videos: ", countVideos);
@@ -73,9 +78,8 @@ function addLectureToList(id, videoName, lectureUrl) {
 function arrangeDownloadLinks(index, url) {
   getLectureInfo(url, function (id, title) {
     getVideoUrl(wistiaIframeBaseUrl + id, function (url) {
-      const lessonItemUrl = `<a href="${url}" title="${title}">${index} ${title}</a><br/>` + "\r\n";
-      //console.log("--->", index, lessonItem);
-      addLectureToList(index, title, lessonItemUrl);
+      const lessonItemHyperlink = `<a href="${url}" title="${title}">${index} ${title}</a>`;
+      addLectureToList(index, { name: title, url: url, link: lessonItemHyperlink });
     });
   });
 }
@@ -98,20 +102,31 @@ function getVideoUrl(wistiaPage, cb) {
   });
 }
 
+function createTextForDownload() {
+  let textContent = ``;
+  courseLinks.forEach((item) => {
+    if (item.name !== "") {
+      let row = `${item.id}--${item.name}: ${item.url} \r\n`;
+      textContent += row;
+    }
+  });
+  return textContent;
+}
+
 function createHtmlForDownload() {
-  let htmlContent = `<!doctype html> <html lang="en"><head> <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
-      </head><body>
-      <div class="container">
-      <table class='table table-striped table-bordered'>
-      <thead><td>No</td><td>Section</td><td>Name</td><td>Title</td><td>Video link</td></thead>
+  let htmlContent = `<!doctype html> \r\n<html lang="en"><head> <meta charset="utf-8"> \r\n
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> \r\n
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" /> \r\n
+      </head><body>\r\n
+      <div class="container">\r\n
+      <table class='table table-striped table-bordered'>\r\n
+      <thead><td>No</td><td>Section</td><td>Name</td><td>Title</td><td>Video link</td></thead>\r\n
       <tbody>`;
   courseLinks.forEach((item) => {
-    let row = `<tr><td>${item.id}</td><td>${item.section}</td><td>${item.title}</td><td>${item.fullTitle}</td><td>${item.url}</td></tr>\r\n`;
+    let row = `<tr><td>${item.id}</td><td>${item.section}</td><td>${item.title}</td><td>${item.fullTitle}</td><td>${item.link}</td></tr>\r\n`;
     htmlContent += row;
   });
-  htmlContent += `</tbody></table></div></body></html>`;
+  htmlContent += `</tbody></table>\r\n</div></body></html>`;
 
   return htmlContent;
 }
@@ -138,18 +153,16 @@ function createAlert(message) {
 }
 
 function downloadFileFromText(filename, content) {
-  var a = document.createElement("a");
-  //var blob = new Blob(content, {type : "text/plain;charset=UTF-8"});
-
+  let anchor = document.createElement("a");
   const dataBytes = new TextEncoder().encode(content);
   const blob = new Blob([dataBytes], {
     type: "text/plain;charset=utf-8", // "application/json;charset=utf-8"
   });
 
-  a.href = window.URL.createObjectURL(blob);
-  a.download = filename;
-  a.style.display = "none";
-  document.body.appendChild(a);
-  a.click(); //this is probably the key - simulating a click on a download link
-  delete a; // we don't need this anymore
+  anchor.href = window.URL.createObjectURL(blob);
+  anchor.download = filename;
+  anchor.style.display = "none";
+  document.body.appendChild(anchor);
+  anchor.click(); //this is probably the key - simulating a click on a download link
+  delete anchor; // we don't need this anymore
 }
