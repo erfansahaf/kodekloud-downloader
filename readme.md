@@ -1,10 +1,10 @@
-# KodeKlude Downloader Chrome Extension
+# KodeKloud Downloader Chrome Extension
 
-With this extension, you can download any KodeKlude course. It extracts direct links from website and let you download the course videos.
+With this extension, you can download any KodeKloud course. It extracts direct links from website and let you download the course videos.
 
 ## Requirement
 
-Since KodeKlude courses are not free, you must be a subscriber. After activating your account as a subscriber, use this extension to download any course you want.
+Since KodeKloud courses are not free, you must be a subscriber. After activating your account as a subscriber, use this extension to download any course you want.
 
 ## Installation
 
@@ -19,7 +19,7 @@ This extension is not available on Chrome Web Store because developers must pay 
 
 ## Usage
 
-Visit any lecture of any course in KudeKloud website, wait untile the page loading is finished and then click on the extension icon. A text file will be downloaded which contains all letures download url.
+Visit any lecture of any course in KodeKloud website, wait untile the page loading is finished and then click on the extension icon. A text file will be downloaded which contains all letures download url.
 
 ## Donate
 
