@@ -4,7 +4,7 @@ With this extension, you can download any KodeKloud course. It extracts direct l
 
 ## Requirement
 
-Since KodeKloud courses are not free, you must be a subscriber. After activating your account as a subscriber, use this extension to download any course you want.
+Since KodeKloud courses are not free, you must be an active subscriber. After becoming a subscriber, you can use this extension to download any course you want. This extension also works for free courses like *Docker for the Absolute Beginner - Hands On*.
 
 ## Installation
 
@@ -19,15 +19,15 @@ This extension is not available on Chrome Web Store because developers must pay 
 
 ## Usage
 
-- Visit any lecture of any course in KodeKloud website, specifically go to open a lecture video page or download reference slide page.
+- Visit any lecture of any course in KodeKloud website, specifically, click on the desired course (ex. *Docker for the Absolute Beginner*) and then choose a lecture frome **Course Curriculum** list (*Introduction* or something else).
 - Wait until the page loading is finished.
-- Once ready, extension will show message "Parsing completed. Total videos: ##" on top right corner of the page.
-- Click on the extension icon to choose:
+- Once ready, extension will show a "Parsing completed. Total videos: ##" message on the top right corner of the page.
+- Click on the extension icon to choose one of the supported formats:
   - Download list as text
   - Download list as html
-- Downloaded files will contains all lectures video download url.
+- Downloaded file contains all lectures video direct download url.
 
-Notes: Please allow multiple download files if prompted by Chrome.
+**Note: Please allow multiple download files permission if it prompted by Chrome.** Otherwise, only one file will be downloaded in a page load, so you have to refresh the page to download the other format.
 
 ## Donate
 
@@ -35,4 +35,4 @@ Maybe someday or somewhere, you buy me a beer, who knows?!
 
 ## Disclaimer
 
-- Use this extension at your risk
+- Use this extension at your risk.
