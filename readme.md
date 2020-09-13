@@ -15,12 +15,24 @@ This extension is not available on Chrome Web Store because developers must pay 
 - Enable `Developer Mode` on the top right corner
 - Click on `"Load unpacked"`
 - Select the directory that you created in the first step
-- You are good to go!
+- Click Extensions icon in menu bar, pin KodeKloud Downloader if it's not showing in menu bar
 
 ## Usage
 
-Visit any lecture of any course in KodeKloud website, wait untile the page loading is finished and then click on the extension icon. A text file will be downloaded which contains all letures download url.
+- Visit any lecture of any course in KodeKloud website, specifically go to open a lecture video page or download reference slide page.
+- Wait until the page loading is finished.
+- Once ready, extension will show message "Parsing completed. Total videos: ##" on top right corner of the page.
+- Click on the extension icon to choose:
+  - Download list as text
+  - Download list as html
+- Downloaded files will contains all lectures video download url.
+
+Notes: Please allow multiple download files if prompted by Chrome.
 
 ## Donate
 
 Maybe someday or somewhere, you buy me a beer, who knows?!
+
+## Disclaimer
+
+- Use this extension at your risk
