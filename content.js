@@ -4,6 +4,7 @@ const places = (i) => i.toString().length;
 const getNumber = (index) => "0".repeat(Math.max(0, places(countLectures) - places(index))) + index.toString();
 const countLectures = $("li.section-item").length;
 const countVideos = $("li.section-item use[*|href='#icon__Video']").length;
+const courseName = $("h2").first().text();
 
 let courseLinks = [];
 let countVideoParsed = 0;
@@ -22,6 +23,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.selection === "text") {
     const textContent = createTextForDownload();
     downloadFileFromText($(".course-sidebar h2").text().toString() + ".txt", textContent);
+  } else if (request.selection === "script") {
+    const scriptContent = createScriptForDownload();
+    downloadFileFromText($(".course-sidebar h2").text().toString() + ".sh", scriptContent);
   } else if (request.selection === "log") {
     const textContent = createTextForDownload();
     console.log(textContent);
@@ -137,6 +141,22 @@ function createHtmlForDownload() {
   htmlContent += `</tbody></table>\r\n</div></body></html>`;
 
   return htmlContent;
+}
+
+function createScriptForDownload() {
+  let scriptContent = `#!/bin/bash\n# begin of downloading script for course ${courseName}\n`;
+  scriptContent += 'mkdir -p "' + sanitize(courseName) + '"\n';
+  scriptContent += 'cd "' + sanitize(courseName) + '"\n';
+  courseLinks.forEach((item) => {
+    if (item.name !== "") {
+      const sanitized = sanitize(`${item.id}-${item.section}-${item.name}.mp4`);
+      const row = `youtube-dl -c -o "${sanitized}" "${item.url}"\n`;
+      scriptContent += row;
+    }
+  });
+  scriptContent += "cd ..\n";
+  scriptContent += `# end of downloading script for course ${courseName}\n`;
+  return scriptContent;
 }
 
 function createAlert(message) {
