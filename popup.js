@@ -14,3 +14,4 @@ function sendDownloadRequest(event) {
 
 document.getElementById("downloadText").addEventListener("click", sendDownloadRequest);
 document.getElementById("downloadHtml").addEventListener("click", sendDownloadRequest);
+// document.getElementById("logToConsole").addEventListener("click", sendDownloadRequest);

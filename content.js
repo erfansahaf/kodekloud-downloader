@@ -22,6 +22,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.selection === "text") {
     const textContent = createTextForDownload();
     downloadFileFromText($(".course-sidebar h2").text().toString() + ".txt", textContent);
+  } else if (request.selection === "log") {
+    const textContent = createTextForDownload();
+    console.log(textContent);
   }
 });
 
