@@ -67,6 +67,9 @@ function addLectureToList(id, { name, url, link }) {
   item.name = name;
   countVideoParsed++;
   //console.log(countVideoParsed, item);
+  createAlert(
+    `Parsed video ${name}. It is ${countVideoParsed} from ${countVideos}`
+  );
 
   if (countVideoParsed === countVideos) {
     console.log("Parsing completed. Total videos: ", countVideos);
