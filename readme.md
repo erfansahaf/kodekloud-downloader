@@ -19,16 +19,18 @@ This extension is not available on Chrome Web Store because developers must pay 
 
 ## Usage
 
-- Visit any lecture of any course in KodeKloud website, specifically, click on the desired course (ex. *Docker for the Absolute Beginner*) and then choose a lecture frome **Course Curriculum** list (*Introduction* or something else).
-- Wait until the page loading is finished.
+- Visit any lecture of any course in KodeKloud website, specifically, click on the desired course (ex. *Docker for the Absolute Beginner*). Doesn't matter if you visit page with course or some lecture from course.
+- Wait until the page loading is finished. You will see information which video has been parsed and how many videos should be parsed.
 - Once ready, extension will show a "Parsing completed. Total videos: ##" message on the top right corner of the page.
 - Click on the extension icon to choose one of the supported formats:
   - Download list as text
   - Download list as html
+  - Download list as script
 - Downloaded file contains all lectures video direct download url.
 
 **Note: Please allow multiple download files permission if it prompted by Chrome.** Otherwise, only one file will be downloaded in a page load, so you have to refresh the page to download the other format.
 
+Note 2: Option "Download list as script" uses `youtube-dl` for downloading videos. It is not really necessary and i.e. `curl` can be used, but `youtube-dl` set headers to mask as a web browser.
 ## Donate
 
 Maybe someday or somewhere, you buy me a beer, who knows?!
