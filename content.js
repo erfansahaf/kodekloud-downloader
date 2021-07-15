@@ -1,6 +1,8 @@
 const baseUrl = "https://kodekloud.com";
 const wistiaIframeBaseUrl = "https://fast.wistia.net/embed/iframe/";
-const getNumber = (index) => (index < 10 ? "0" + index : index.toString());
+const places = (i) => i.toString().length;
+const getNumber = (index) => "0".repeat(Math.max(0, places(countLectures) - places(index))) + index.toString();
+const countLectures = $("li.section-item").length;
 const countVideos = $("li.section-item use[*|href='#icon__Video']").length;
 
 let courseLinks = [];
