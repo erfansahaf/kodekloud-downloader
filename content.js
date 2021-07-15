@@ -164,5 +164,5 @@ function downloadFileFromText(filename, content) {
   anchor.style.display = "none";
   document.body.appendChild(anchor);
   anchor.click(); //this is probably the key - simulating a click on a download link
-  delete anchor; // we don't need this anymore
+  anchor.remove(); // we don't need this anymore
 }
