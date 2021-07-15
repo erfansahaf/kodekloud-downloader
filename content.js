@@ -1,8 +1,8 @@
 const baseUrl = "https://kodekloud.com";
 const wistiaIframeBaseUrl = "https://fast.wistia.net/embed/iframe/";
 const getNumber = (index) => (index < 10 ? "0" + index : index.toString());
+const countVideos = $("li.section-item use[*|href='#icon__Video']").length;
 
-const countVideos = $("li.section-item .fa-youtube-play").length;
 let courseLinks = [];
 let countVideoParsed = 0;
 let parseCompleted = false;
@@ -24,8 +24,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 // Look for lesson item [li with section item]
-$(".course-sidebar")
-  .find("li.section-item")
+$("li.section-item")
   .each(function (index, el) {
     // console.log("#", index, el);
     let self = $(this);
@@ -48,11 +47,12 @@ $(".course-sidebar")
     };
 
     //console.log(lecture);
-    if ($(this).find(".fa-youtube-play").length > 0) {
-      var url = $(this).attr("data-lecture-url") || null;
+    if ($(this).find("use[*|href='#icon__Video']").length > 0) {
+      var url = this.dataset.lectureUrl;
+      url = url ? baseUrl + url : $(this).find("a")[0].href;
       if (url) {
         // console.log("--> get download link", number);
-        arrangeDownloadLinks(number, baseUrl + url);
+        arrangeDownloadLinks(number, url);
       }
     }
 
