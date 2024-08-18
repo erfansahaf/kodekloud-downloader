@@ -1,3 +1,5 @@
+Note: Because of KodeKloud UI changes, this extension is not working anymore. PRs are welcome.
+
 # KodeKloud Downloader Chrome Extension
 
 With this extension, you can download any KodeKloud course. It extracts direct links from website and let you download the course videos.
